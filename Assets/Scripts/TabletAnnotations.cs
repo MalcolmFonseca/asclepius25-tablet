@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.IO; // For File Handling
-using System; // For DateTime
+using System.IO;
+using System;
 
 public class TabletAnnotations : MonoBehaviour
 {
@@ -19,7 +19,9 @@ public class TabletAnnotations : MonoBehaviour
     private List<string> annotationData = new List<string>();
 
     private int annotationID = 0;
+    private string fileName;
     private string filePath;
+    private string downloadsPath;
 
     void Start()
     {
@@ -28,19 +30,18 @@ public class TabletAnnotations : MonoBehaviour
         blueSlider.onValueChanged.AddListener(UpdateColor);
         UpdateColor(0);
 
-        // Generate a unique filename based on the current time
+        // Generate filename with timestamp
         string timestamp = DateTime.Now.ToString("yyyy-MM-dd_HH-mm");
-        string fileName = $"annotation_{timestamp}.csv";
+        fileName = $"annotation_{timestamp}.csv";
 
-        // Save it in a visible location
-        #if UNITY_ANDROID
-            filePath = Path.Combine(Application.persistentDataPath, fileName); // Best location for Android
-        #else
-            filePath = Path.Combine(Application.dataPath, fileName); // Visible in Unity editor
-        #endif
+        // Define file paths
+        filePath = Path.Combine(Application.dataPath, fileName); // Unity project folder
+        downloadsPath = GetDownloadsPath(fileName); // OS-specific Downloads folder
 
         // Create the file and add headers
-        File.WriteAllText(filePath, "Timestamp,AnnotationID,ColorR,ColorG,ColorB,X,Y,Z\n");
+        string header = "Timestamp,AnnotationID,ColorR,ColorG,ColorB,X,Y,Z\n";
+        File.WriteAllText(filePath, header); // Save in project directory
+        File.WriteAllText(downloadsPath, header); // Save in Downloads
     }
 
     void Update()
@@ -108,7 +109,9 @@ public class TabletAnnotations : MonoBehaviour
 
     void SaveAnnotationData()
     {
-        File.AppendAllLines(filePath, annotationData);
+        File.AppendAllLines(filePath, annotationData); // Save in project folder
+        File.AppendAllLines(downloadsPath, annotationData); // Save in Downloads folder
+        Debug.Log($"Annotations saved to: {downloadsPath}");
     }
 
     Vector3 GetTouchPosition()
@@ -134,13 +137,28 @@ public class TabletAnnotations : MonoBehaviour
     bool IsPointerOverUI()
     {
         if (EventSystem.current.IsPointerOverGameObject()) return true;
-
         if (Input.touchCount > 0)
         {
             int fingerId = Input.GetTouch(0).fingerId;
             return EventSystem.current.IsPointerOverGameObject(fingerId);
         }
-
         return false;
+    }
+
+    string GetDownloadsPath(string fileName)
+    {
+        string path;
+        #if UNITY_ANDROID
+            path = Path.Combine("/storage/emulated/0/Download", fileName); // Android Downloads folder
+        #elif UNITY_STANDALONE_WIN
+            path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", fileName); // Windows
+        #elif UNITY_STANDALONE_OSX
+            path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", fileName); // macOS
+        #elif UNITY_STANDALONE_LINUX
+            path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", fileName); // Linux
+        #else
+            path = Application.persistentDataPath; // Default fallback
+        #endif
+        return path;
     }
 }
