@@ -6,47 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SceneManager.unity
-    guid: 72652d3433c1121459382b5359175581
-  - enabled: 0
-    path: 
-    guid: e49913f9b04bbe84e914338398f476ab
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Scenes/surgeonScene 1.unity
-    guid: e066defd4902ae943ba2fd3230c383cf
-  - enabled: 0
-    path: Assets/Scenes/annotationDemo.unity
-    guid: d83f7a0306c12fd489c77b3154b84345
-  - enabled: 0
-    path: Assets/Scenes/Mk2handAnnotationDemo.unity
-    guid: bd1745915490d854180c0f59e2f2fc42
-  - enabled: 0
-    path: Assets/Scenes/handAnnotationDemo.unity
-    guid: 60ab96c4b40281248987da619ab08a38
-  - enabled: 0
-    path: Assets/Scenes/traineeScene 1.unity
-    guid: 5fd8f334e4c7a8c4bba827df66766cb1
-  - enabled: 0
-    path: Assets/Scenes/testingScene.unity
-    guid: a92707ad82ee12b4db1a954a51cdc727
-  - enabled: 1
-    path: Assets/Scenes/CommunicationWorkingCopies/testingSurgeon.unity
-    guid: 467b3e3e2e022b74dbcbd90e1a0e7dea
-  - enabled: 1
-    path: Assets/Scenes/modeSelectionScene.unity
-    guid: 00887c84cb649d14e83d5e8e5be7c099
-  - enabled: 1
-    path: Assets/Scenes/CommunicationWorkingCopies/testingTraineeScene 2.unity
-    guid: ee0c475689dfbcc478e44a0e0f661d1a
+    path: Assets/Scenes/TabletView.unity
+    guid: ea3fffe9ffc7c43efbdc108fd16463dc
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: a9b2142c24aad574eb8f369b110105ca,
       type: 2}
