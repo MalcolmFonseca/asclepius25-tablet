@@ -4,6 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
 using System;
+using Photon.Pun;
+using System.Net.NetworkInformation;
+using System.Collections;
 
 public class TabletAnnotations : MonoBehaviour
 {
@@ -14,7 +17,9 @@ public class TabletAnnotations : MonoBehaviour
     public Image colorWheel;
     public Slider redSlider, greenSlider, blueSlider;
 
+    private GameObject lineObj;
     private LineRenderer currentLine;
+    PhotonView pV;
     private List<Vector3> points = new List<Vector3>();
     private List<string> annotationData = new List<string>();
 
@@ -62,8 +67,7 @@ public class TabletAnnotations : MonoBehaviour
             if (points.Count == 0 || Vector3.Distance(points[points.Count - 1], touchPos) > 0.002f)
             {
                 points.Add(touchPos);
-                currentLine.positionCount = points.Count;
-                currentLine.SetPosition(points.Count - 1, touchPos);
+                pV.RPC("UpdateLine",RpcTarget.All, points.Count, touchPos);
 
                 LogAnnotationData(touchPos);
             }
@@ -74,7 +78,8 @@ public class TabletAnnotations : MonoBehaviour
             if (currentLine != null)
             {
                 SaveAnnotationData();
-                Destroy(currentLine.gameObject, lineLifetime);
+                //Destroy(currentLine.gameObject, lineLifetime);
+                StartCoroutine(DeleteAnnotation());
                 currentLine = null;
             }
         }
@@ -82,19 +87,10 @@ public class TabletAnnotations : MonoBehaviour
 
     void StartNewLine()
     {
-        GameObject lineObj = new GameObject("Line");
-        currentLine = lineObj.AddComponent<LineRenderer>();
-        currentLine.material = new Material(Shader.Find("Sprites/Default"));
-        currentLine.startWidth = lineWidth;
-        currentLine.endWidth = lineWidth;
-        currentLine.positionCount = 0;
-        currentLine.useWorldSpace = true;
-        currentLine.numCornerVertices = 10;
-        currentLine.numCapVertices = 10;
-
-        Color selectedColor = new Color(redSlider.value, greenSlider.value, blueSlider.value);
-        currentLine.startColor = selectedColor;
-        currentLine.endColor = selectedColor;
+        lineObj = PhotonNetwork.Instantiate("Line", new Vector3(0, 0, 0), Quaternion.identity, 0);
+        currentLine = lineObj.GetComponent<LineRenderer>();
+        pV = lineObj.GetComponent<PhotonView>();
+        pV.RPC("StartLine", RpcTarget.All, lineWidth, redSlider.value, greenSlider.value, blueSlider.value);
 
         points.Clear();
         annotationData.Clear();
@@ -148,17 +144,23 @@ public class TabletAnnotations : MonoBehaviour
     string GetDownloadsPath(string fileName)
     {
         string path;
-        #if UNITY_ANDROID
-            path = Path.Combine("/storage/emulated/0/Download", fileName); // Android Downloads folder
-        #elif UNITY_STANDALONE_WIN
+#if UNITY_ANDROID
+        path = Path.Combine("/storage/emulated/0/Download", fileName); // Android Downloads folder
+#elif UNITY_STANDALONE_WIN
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", fileName); // Windows
-        #elif UNITY_STANDALONE_OSX
+#elif UNITY_STANDALONE_OSX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", fileName); // macOS
-        #elif UNITY_STANDALONE_LINUX
+#elif UNITY_STANDALONE_LINUX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", fileName); // Linux
-        #else
+#else
             path = Application.persistentDataPath; // Default fallback
-        #endif
+#endif
         return path;
+    }
+
+    IEnumerator DeleteAnnotation()
+    {
+        yield return new WaitForSeconds(lineLifetime);
+        PhotonNetwork.Destroy(lineObj);
     }
 }
