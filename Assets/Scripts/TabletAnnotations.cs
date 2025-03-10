@@ -11,7 +11,6 @@ using System.Collections;
 public class TabletAnnotations : MonoBehaviour
 {
     public Material lineMaterial;
-    public float lineLifetime = 2f;
     public float lineWidth = 0.02f;
     public Color currentColor = Color.red;
     public Image colorWheel;
@@ -67,7 +66,7 @@ public class TabletAnnotations : MonoBehaviour
             if (points.Count == 0 || Vector3.Distance(points[points.Count - 1], touchPos) > 0.002f)
             {
                 points.Add(touchPos);
-                pV.RPC("UpdateLine",RpcTarget.All, points.Count, touchPos);
+                pV.RPC("UpdateLine", RpcTarget.All, points.Count, touchPos);
 
                 LogAnnotationData(touchPos);
             }
@@ -79,7 +78,7 @@ public class TabletAnnotations : MonoBehaviour
             {
                 SaveAnnotationData();
                 //Destroy(currentLine.gameObject, lineLifetime);
-                StartCoroutine(DeleteAnnotation());
+                //StartCoroutine(DeleteAnnotation());
                 currentLine = null;
             }
         }
@@ -153,14 +152,8 @@ public class TabletAnnotations : MonoBehaviour
 #elif UNITY_STANDALONE_LINUX
             path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads", fileName); // Linux
 #else
-            path = Application.persistentDataPath; // Default fallback
+        path = Application.persistentDataPath; // Default fallback
 #endif
         return path;
-    }
-
-    IEnumerator DeleteAnnotation()
-    {
-        yield return new WaitForSeconds(lineLifetime);
-        PhotonNetwork.Destroy(lineObj);
     }
 }
