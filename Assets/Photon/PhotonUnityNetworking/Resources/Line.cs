@@ -7,6 +7,22 @@ using UnityEngine.UIElements;
 public class Line : MonoBehaviourPunCallbacks
 {
     private float lineLifetime = 2f;
+    private float timer;
+
+    private void Start()
+    {
+        timer = lineLifetime;
+    }
+
+    private void Update()
+    {
+        timer -= Time.deltaTime;
+        if (timer < 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     [PunRPC]
     void StartLine(float lineWidth, float red, float green, float blue)
     {
@@ -21,7 +37,6 @@ public class Line : MonoBehaviourPunCallbacks
         Color selectedColor = new Color(red, green, blue);
         currentLine.startColor = selectedColor;
         currentLine.endColor = selectedColor;
-        StartCoroutine(DeleteAnnotation());
     }
 
     [PunRPC]
@@ -30,11 +45,6 @@ public class Line : MonoBehaviourPunCallbacks
         LineRenderer currentLine = GetComponent<LineRenderer>();
         currentLine.positionCount = pointCount;
         currentLine.SetPosition(pointCount - 1, touchPos);
-    }
-
-    IEnumerator DeleteAnnotation()
-    {
-        yield return new WaitForSeconds(lineLifetime);
-        Destroy(gameObject);
+        timer = lineLifetime;
     }
 }

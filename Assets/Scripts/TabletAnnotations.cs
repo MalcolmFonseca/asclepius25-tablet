@@ -78,7 +78,6 @@ public class TabletAnnotations : MonoBehaviour
             {
                 SaveAnnotationData();
                 //Destroy(currentLine.gameObject, lineLifetime);
-                //StartCoroutine(DeleteAnnotation());
                 currentLine = null;
             }
         }
