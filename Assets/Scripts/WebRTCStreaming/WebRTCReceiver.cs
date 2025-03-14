@@ -1,7 +1,6 @@
 using UnityEngine;
 using Microsoft.MixedReality.WebRTC;
 using UnityEngine.UI;
-
 public class WebRTCReceiver : MonoBehaviour
 {
     public RawImage display;
