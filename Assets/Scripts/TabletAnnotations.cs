@@ -11,7 +11,7 @@ using System.Collections;
 public class TabletAnnotations : MonoBehaviour
 {
     public Material lineMaterial;
-    public float lineWidth = 0.02f;
+    public float lineWidth = 0.002f;
     public Color currentColor = Color.red;
     public Image colorWheel;
     public Slider redSlider, greenSlider, blueSlider;

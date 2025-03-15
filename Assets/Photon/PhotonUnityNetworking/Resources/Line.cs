@@ -8,6 +8,7 @@ public class Line : MonoBehaviourPunCallbacks
 {
     private float lineLifetime = 2f;
     private float timer;
+    private GameObject mainCamera;
 
     private void Start()
     {
@@ -31,12 +32,13 @@ public class Line : MonoBehaviourPunCallbacks
         currentLine.startWidth = lineWidth;
         currentLine.endWidth = lineWidth;
         currentLine.positionCount = 0;
-        currentLine.useWorldSpace = true;
+        currentLine.useWorldSpace = false;
         currentLine.numCornerVertices = 10;
         currentLine.numCapVertices = 10;
         Color selectedColor = new Color(red, green, blue);
         currentLine.startColor = selectedColor;
         currentLine.endColor = selectedColor;
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
     }
 
     [PunRPC]
@@ -44,7 +46,8 @@ public class Line : MonoBehaviourPunCallbacks
     {
         LineRenderer currentLine = GetComponent<LineRenderer>();
         currentLine.positionCount = pointCount;
-        currentLine.SetPosition(pointCount - 1, touchPos);
+        currentLine.SetPosition(pointCount - 1, touchPos + mainCamera.transform.position + new Vector3(0, 0, 10));
+        transform.rotation = mainCamera.transform.rotation;
         timer = lineLifetime;
     }
 }

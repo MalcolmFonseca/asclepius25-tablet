@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TabletView.unity
-    guid: ea3fffe9ffc7c43efbdc108fd16463dc
+    path: Assets/Scenes/HololensView.unity
+    guid: dcb3c136f4da029448621e3d10bc892d
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: a9b2142c24aad574eb8f369b110105ca,
       type: 2}
