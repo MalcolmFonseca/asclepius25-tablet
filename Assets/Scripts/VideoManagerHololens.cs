@@ -18,7 +18,7 @@ public class VideoManagerHololens : MonoBehaviour
     float refreshRate = .034f; //in seconds (.034s ~ 30fps)
     float timer;
 
-    private string serverIP = "172.20.10.4";
+    private string serverIP = "127.0.0.1";
     private int serverPort = 8080;
     private TcpClient client;
     private NetworkStream stream;

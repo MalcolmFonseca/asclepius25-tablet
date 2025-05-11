@@ -322,7 +322,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 593607850}
-  - component: {fileID: 593607849}
   m_Layer: 0
   m_Name: VoiceLogger
   m_TagString: Untagged
@@ -330,19 +329,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &593607849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593607848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a86f533fd9917dd4da8601e9eb542c96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LogLevel: 2
 --- !u!4 &593607850
 Transform:
   m_ObjectHideFlags: 0
@@ -367,7 +353,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 769642605}
-  - component: {fileID: 769642604}
+  - component: {fileID: 769642606}
   m_Layer: 0
   m_Name: Launcher
   m_TagString: Untagged
@@ -375,21 +361,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &769642604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769642603}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 241f2330eaf79e44dbe7c5dc1e55e0c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pvCache: {fileID: 0}
-  playerPrefab: {fileID: -7631245424385255054, guid: 2349a01a79fffc04db51aa88700df5ea,
-    type: 3}
 --- !u!4 &769642605
 Transform:
   m_ObjectHideFlags: 0
@@ -405,6 +376,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &769642606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769642603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f76b448eb10628f42ae566ef326c40f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPrefab: {fileID: -7631245424385255054, guid: 5f018c6de31cd2a4db446e74a0b0b273,
+    type: 3}
 --- !u!1 &1405981935
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,8 +431,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1494957829}
-  - component: {fileID: 1494957828}
-  - component: {fileID: 1494957827}
   m_Layer: 0
   m_Name: VoiceManager
   m_TagString: Untagged
@@ -455,109 +438,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1494957827
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494957826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91175dcc15224463780e01a8a98b1b60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  voiceDetection: 0
-  voiceDetectionThreshold: 0.01
-  voiceDetectionDelayMs: 500
-  voiceConnection: {fileID: 0}
-  interestGroup: 0
-  useTargetPlayers: 0
-  targetPlayers: 
-  debugEchoMode: 0
-  reliableMode: 0
-  encrypt: 0
-  transmitEnabled: 1
-  samplingRate: 24000
-  frameDuration: 20000
-  bitrate: 30000
-  sourceType: 0
-  microphoneType: 0
-  audioClip: {fileID: 0}
-  loopAudioClip: 1
-  recordingEnabled: 1
-  audioSessionParameters:
-    Category: 4
-    Mode: 1
-    CategoryOptions: 0800000004000000
-  editorAudioSessionPreset: 1
-  androidMicrophoneSettings:
-    EnableAEC: 1
-    EnableAGC: 1
-    EnableNS: 1
-  isPausedOrInBackground: 0
-  stopRecordingWhenPaused: 0
-  useOnAudioFilterRead: 0
-  useMicrophoneTypeFallback: 1
-  recordWhenJoined: 1
-  microphoneDeviceChangePending: 0
-  restartRecordingPending: 0
---- !u!114 &1494957828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1494957826}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81d9debcbaf99472bb70ffc2f99cb23f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DisconnectAfterKeepAlive: 0
-  KeepAliveInBackground: 60000
-  <CountSendAcksOnly>k__BackingField: 0
-  <FallbackThreadRunning>k__BackingField: 0
-  ApplyDontDestroyOnLoad: 1
-  didSendAcks: 0
-  supportLoggerComponent: {fileID: 0}
-  runInBackground: 1
-  statsResetInterval: 1000
-  nextStatsTickCount: 2060375
-  statsReferenceTime: 0
-  referenceFramesLost: 0
-  referenceFramesReceived: 0
-  speakerPrefab: {fileID: 0}
-  primaryRecorder: {fileID: 1494957827}
-  usePrimaryRecorder: 0
-  cppCompatibilityMode: 0
-  linkedSpeakers: []
-  recorders: []
-  Settings:
-    AppIdRealtime: 
-    AppIdFusion: 
-    AppIdChat: 
-    AppIdVoice: 
-    AppVersion: 
-    UseNameServer: 1
-    FixedRegion: 
-    Server: 
-    Port: 0
-    ProxyServer: 
-    Protocol: 0
-    EnableProtocolFallback: 1
-    AuthMode: 0
-    EnableLobbyStatistics: 0
-    NetworkLogging: 1
-  ShowSettings: 1
-  <FramesReceivedPerSecond>k__BackingField: 0
-  <FramesLostPerSecond>k__BackingField: 0
-  <FramesLostPercent>k__BackingField: 0
-  AutoConnectAndJoin: 1
-  manualDisconnect: 0
-  errAuthOrJoin: 0
-  usePunAppSettings: 1
-  usePunAuthValues: 1
 --- !u!4 &1494957829
 Transform:
   m_ObjectHideFlags: 0
